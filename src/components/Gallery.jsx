@@ -130,6 +130,7 @@ const buttonVariants = {
   },
 };
 
+
 // Helper function to extract YouTube ID from URL
 const getYouTubeId = (url) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -162,7 +163,8 @@ export default function Gallery() {
               video.youtubeUrl
             )}/mqdefault.jpg`,
           }));
-  
+   
+          
     useEffect(() => {
       setSelectedIndex(0);
       if (sliderRef.current) {

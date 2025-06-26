@@ -14,6 +14,17 @@ export default function Header() {
   const buttonRef = useRef(null);
   const router = useRouter();
   const pathname = usePathname();
+  useEffect(() => {
+      window.scrollTo(0, 0);
+    
+  }, []);
+  // Reset scroll position on initial load
+  // useEffect(() => {
+  //   if (history.scrollRestoration) {
+  //     history.scrollRestoration = 'manual';
+  //   }
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -38,7 +49,10 @@ export default function Header() {
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
+      // Add a small timeout to ensure the section is rendered
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: "smooth" });
+      }, 50);
     }
   };
 
@@ -46,17 +60,26 @@ export default function Header() {
     if (link.isSection) {
       e.preventDefault();
       setIsOpen(false);
-
+  
       if (pathname !== "/") {
-        router.prefetch("/");
+        // Store the section to scroll to in sessionStorage
         sessionStorage.setItem("sectionToScroll", link.href);
-        router.push("/", { scroll: false });
+        // Add a flag to indicate we're navigating from a section link
+        sessionStorage.setItem("fromSectionLink", "true");
+        router.push("/");
       } else {
-        requestAnimationFrame(() => scrollToSection(link.href));
+        // Ensure the page is at the top before scrolling
+        window.scrollTo(0, 0);
+        setTimeout(() => {
+          const section = document.getElementById(link.href);
+          if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
       }
     } else {
-      router.prefetch(link.href);
       setIsOpen(false);
+      router.push(link.href);
     }
   };
 
@@ -64,10 +87,18 @@ export default function Header() {
     if (pathname === "/") {
       const sectionId = sessionStorage.getItem("sectionToScroll");
       if (sectionId) {
-        requestAnimationFrame(() => {
+        // Clear the stored section immediately
+        sessionStorage.removeItem("sectionToScroll");
+        
+        // Wait for the page to be fully loaded before scrolling
+        const timer = setTimeout(() => {
           scrollToSection(sectionId);
-          sessionStorage.removeItem("sectionToScroll");
-        });
+        }, 300);
+
+        return () => clearTimeout(timer);
+      } else {
+        // If no section to scroll to, ensure we're at the top
+        window.scrollTo(0, 0);
       }
     }
   }, [pathname]);
@@ -133,6 +164,7 @@ export default function Header() {
       }
     };
   }, []);
+
 
   return (
     <header className="flex fixed top-0 left-0 items-center justify-between px-4 md:px-10 z-50 w-full h-20 bg-black bg-opacity-80 backdrop-blur-sm">

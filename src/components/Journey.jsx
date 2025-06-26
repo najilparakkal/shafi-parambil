@@ -153,7 +153,7 @@ export default function Journey() {
 
       <div className="md:py-10 py-5 px-4">
         <motion.div
-          className="bg-[#00520E] rounded-lg  md:p-6 max-h-[500px]  overflow-auto"
+          className="bg-[#00520E] rounded-lg  md:p-6 max-h-[500px]  overflow-auto custom-scrollbar"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -168,7 +168,7 @@ export default function Journey() {
               />
 
               {/* Horizontal scroll container */}
-              <div className="mt-4 relative overflow-x-auto scrollbar-hidden">
+              <div className="mt-4 relative overflow-x-auto scrollbar-hidden custom-scrollbar">
                 <div className="flex w-max space-x-6 px-2">
                   {years.map((year, index) => (
                     <motion.div

@@ -127,7 +127,7 @@ export default function ImageGallery() {
 
   return (
     <div className="w-full bg-black overflow-hidden flex flex-col">
-      <div className="md:max-w-7xl w-80 mx-auto h-[400px] md:h-[500px] mt-10">
+      <div className="md:max-w-7xl  max-w-80 mx-auto h-[400px] md:h-[500px] mt-10">
         <Slider {...settings} ref={sliderRef}>
           {imagesData.map((image, index) => {
             const slideClass = getSlideClass(index);

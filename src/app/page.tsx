@@ -4,7 +4,7 @@ import Image from "next/image";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "../components/Header";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
 import Journey from '../components/Journey'
 import Impacts from '../components/Impacts'
@@ -85,6 +85,10 @@ const AnimatedSection = ({
   className = "",
 }: any) => {
   const ref = useRef(null);
+
+
+
+
   const isInView = useInView(ref, {
     margin: "-10% 0px -10% 0px",
     amount: 0.3,
@@ -113,6 +117,31 @@ const AnimatedSection = ({
   );
 };
 export default function Home() {
+
+  useEffect(() => {
+    // Check if we're coming from a section link click
+    const fromSectionLink = sessionStorage.getItem("fromSectionLink");
+    const sectionId = sessionStorage.getItem("sectionToScroll");
+  
+    if (fromSectionLink && sectionId) {
+      // Clear the flags immediately
+      sessionStorage.removeItem("fromSectionLink");
+      sessionStorage.removeItem("sectionToScroll");
+  
+      // Scroll to the section after a brief delay
+      setTimeout(() => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          // First scroll to top to ensure proper positioning
+          window.scrollTo(0, 0);
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 300);
+    } else {
+      // Normal page load - scroll to top
+      window.scrollTo(0, 0);
+    }
+  }, []);
   return (
     <div className=" relative w-full flex flex-col">
       <Header />
@@ -199,7 +228,7 @@ export default function Home() {
       </main>
 
 
-      <div className="md:h-autoflex h-auto flex-col py-10 antialiased bg-white  dark:bg-grid-white/[0.05] md:items-center bg-amber-300 md:justify-center relative overflow-hidden">
+      <div className="md:h-autoflex h-auto flex-col py-10 antialiased bg-white  dark:bg-grid-white/[0.05] md:items-center  md:justify-center relative overflow-hidden">
 
         <InfiniteMovingCards
           items={images}
