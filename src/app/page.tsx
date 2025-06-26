@@ -1,103 +1,224 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Header from "../components/Header";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
+import Journey from '../components/Journey'
+import Impacts from '../components/Impacts'
+import Gallery from '../components/Gallery'
+import VideoGallery from '../components/VedioGallery'
+import Footer from '../components/Footer'
+const fadeInUp = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+    transform: "translate3d(0, 60px, 0)",
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transform: "translate3d(0, 0, 0)",
+  },
+};
+
+const fadeInLeft = {
+  hidden: {
+    opacity: 0,
+    x: -60,
+    transform: "translate3d(-60px, 0, 0)",
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transform: "translate3d(0, 0, 0)",
+  },
+};
+
+const fadeInRight = {
+  hidden: {
+    opacity: 0,
+    x: 60,
+    transform: "translate3d(60px, 0, 0)",
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transform: "translate3d(0, 0, 0)",
+  },
+};
+
+const images = [
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+  {
+    image: "/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+  },
+
+];
+
+const AnimatedSection = ({
+  children,
+  variants = fadeInUp,
+  delay = 0,
+  className = "",
+}: any) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    margin: "-10% 0px -10% 0px",
+    amount: 0.3,
+    once: true,
+  });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+      transition={{
+        duration: 0.6,
+        delay,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      className={className}
+      style={{
+        willChange: "transform, opacity",
+        backfaceVisibility: "hidden",
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className=" relative w-full flex flex-col">
+      <Header />
+      <main className="relative w-full mt-20 rounded-b-xl bg-black">
+        <div className="relative w-full h-40 md:h-[calc(100vh-5rem)]">
+          <Image
+            src="/banner/shafi[1].png"
+            alt="Background"
+            fill
+            className="object-cover"
+            quality={100}
+            priority
+          />
         </div>
+        <div
+          className="w-full md:px-16 px-5 md:py-24 py-10 h-auto "
+          id="about"
+          style={{
+            willChange: "transform",
+            transform: "translate3d(0, 0, 0)",
+          }}
+        >
+          <div className="flex h-full md:justify-between items-center  gap-8  flex-col md:flex-row ">
+            <div className="flex flex-col flex-1 w-full  h-full">
+              <AnimatedSection
+                variants={fadeInRight}
+                delay={0.2}
+                className="w-full max-w-full self-center md:self-auto"
+              >
+                <motion.div
+                  className="relative"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  style={{
+                    willChange: "transform",
+                    backfaceVisibility: "hidden",
+                  }}
+                >
+                  <Image
+                    src="/banner/വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ[1].jpg"
+                    alt="വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ"
+                    width={600}
+                    height={600}
+                    className="rounded-2xl shadow-2xl object-cover w-full h-98"
+                    quality={100}
+                    style={{
+                      willChange: "transform",
+                      backfaceVisibility: "hidden",
+                    }}
+                  />
+                </motion.div>
+              </AnimatedSection>
+            </div>
+            <AnimatedSection
+
+              variants={fadeInLeft}
+              className="flex-1 w-full  h-full"
+            >
+              <div className="h-full flex flex-col justify-between montserrat text-sm leading-relaxed  text-center md:text-left">
+                <h2 className="text-3xl font-semibold mb-5 text-white">
+                  About Shafi Parambil
+                </h2>
+                <p className="">
+                  Shafi Parambil is a dynamic and forward-thinking Member of the Kerala Legislative Assembly, representing the vibrant constituency of Palakkad since 2011. A strong voice of the youth and a dedicated public servant, Shafi has consistently championed education, employment, social justice, and inclusive growth
+                </p>
+                <p>
+                  With a background in student politics and leadership roles in the Kerala Students Union (KSU), Shafi rose to prominence as a passionate advocate for democratic values and the rights of the common people. His commitment to transparency, accessibility, and grassroots engagement has earned him immense respect among constituents and colleagues alike.
+                </p>
+                <p>
+                  Known for his clarity of thought, powerful oratory, and progressive stance on key issues, Shafi stands as a beacon of hope for a new generation of political leadership. Whether it’s strengthening local infrastructure, ensuring quality education, promoting youth welfare, or standing up for secularism and equality, his work reflects a deep-rooted passion to serve.
+                </p>
+                <p>
+                  As a modern politician with a people-first approach, Shafi Parambil combines vision with action — leading by example, listening to the voices of the people, and striving every day to build a better, inclusive Kerala.
+                </p>
+
+              </div>
+            </AnimatedSection>
+
+
+          </div>
+        </div>
+
+
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+
+      <div className="md:h-autoflex h-auto flex-col py-10 antialiased bg-white  dark:bg-grid-white/[0.05] md:items-center bg-amber-300 md:justify-center relative overflow-hidden">
+
+        <InfiniteMovingCards
+          items={images}
+          direction="right"
+          speed="normal"
+        />
+
+        <InfiniteMovingCards
+          items={images}
+          direction="left"
+          speed="normal"
+        />
+      </div>
+      <Journey />
+      <Impacts />
+      <Gallery />
+      <VideoGallery />
+      <Footer />
+      <SpeedInsights />
     </div>
   );
 }
