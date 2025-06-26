@@ -14,18 +14,13 @@ export default function Header() {
   const buttonRef = useRef(null);
   const router = useRouter();
   const pathname = usePathname();
-  useEffect(() => {
-      window.scrollTo(0, 0);
-    
-  }, []);
-  // Reset scroll position on initial load
-  // useEffect(() => {
-  //   if (history.scrollRestoration) {
-  //     history.scrollRestoration = 'manual';
-  //   }
-  //   window.scrollTo(0, 0);
-  // }, []);
 
+  // Scroll to top on initial load
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  // Handle body overflow when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -49,27 +44,29 @@ export default function Header() {
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      // Add a small timeout to ensure the section is rendered
-      setTimeout(() => {
-        section.scrollIntoView({ behavior: "smooth" });
-      }, 50);
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleNavigation = async (e, link) => {
+  // Handle section navigation using URL hash
+  useEffect(() => {
+    if (pathname === "/" && window.location.hash) {
+      const sectionId = window.location.hash.substring(1);
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    }
+  }, [pathname]);
+
+  const handleNavigation = (e, link) => {
     if (link.isSection) {
       e.preventDefault();
       setIsOpen(false);
   
       if (pathname !== "/") {
-        // Store the section to scroll to in sessionStorage
-        sessionStorage.setItem("sectionToScroll", link.href);
-        // Add a flag to indicate we're navigating from a section link
-        sessionStorage.setItem("fromSectionLink", "true");
-        router.push("/");
+        router.push(`/#${link.href}`, { scroll: false });
       } else {
-        // Ensure the page is at the top before scrolling
-        window.scrollTo(0, 0);
+        window.location.hash = link.href;
         setTimeout(() => {
           const section = document.getElementById(link.href);
           if (section) {
@@ -78,30 +75,10 @@ export default function Header() {
         }, 100);
       }
     } else {
+      router.prefetch(link.href);
       setIsOpen(false);
-      router.push(link.href);
     }
   };
-
-  useEffect(() => {
-    if (pathname === "/") {
-      const sectionId = sessionStorage.getItem("sectionToScroll");
-      if (sectionId) {
-        // Clear the stored section immediately
-        sessionStorage.removeItem("sectionToScroll");
-        
-        // Wait for the page to be fully loaded before scrolling
-        const timer = setTimeout(() => {
-          scrollToSection(sectionId);
-        }, 300);
-
-        return () => clearTimeout(timer);
-      } else {
-        // If no section to scroll to, ensure we're at the top
-        window.scrollTo(0, 0);
-      }
-    }
-  }, [pathname]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -165,7 +142,6 @@ export default function Header() {
     };
   }, []);
 
-
   return (
     <header className="flex fixed top-0 left-0 items-center justify-between px-4 md:px-10 z-50 w-full h-20 bg-black bg-opacity-80 backdrop-blur-sm">
       <div className="flex items-center justify-center z-10">
@@ -203,6 +179,7 @@ export default function Header() {
         <a
           href="https://facebook.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
           <FaFacebook className="h-5 w-5" />
@@ -210,6 +187,7 @@ export default function Header() {
         <a
           href="https://twitter.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
           <BsTwitterX className="h-5 w-5" />
@@ -217,6 +195,7 @@ export default function Header() {
         <a
           href="https://instagram.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
           <FaInstagram className="h-5 w-5" />
@@ -224,6 +203,7 @@ export default function Header() {
         <a
           href="https://youtube.com"
           target="_blank"
+          rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
           <FaYoutube className="h-5 w-5" />
@@ -256,7 +236,7 @@ export default function Header() {
         } shadow-2xl flex flex-col justify-between`}
       >
         {/* Logo at Top Right Corner */}
-        <div className=" justify-end px-4 py-4">
+        <div className="justify-end px-4 py-4">
           <Image
             src="/logo/Cream Red Simple Bold Modern Creative Studio Logo 1.png"
             alt="Shafi parambil Logo"
@@ -267,7 +247,7 @@ export default function Header() {
           />
 
           {/* Navigation */}
-          <nav className="flex flex-col  space-y-4 px-3 ">
+          <nav className="flex flex-col space-y-4 px-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -281,12 +261,14 @@ export default function Header() {
             ))}
           </nav>
         </div>
+
         {/* Social Media Bottom Centered */}
         <div className="px-6 py-6">
           <div className="flex justify-center gap-6">
             <a
               href="https://facebook.com"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-[var(--primary-color)]"
             >
               <FaFacebook className="h-6 w-6" />
@@ -294,6 +276,7 @@ export default function Header() {
             <a
               href="https://twitter.com"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-[var(--primary-color)]"
             >
               <BsTwitterX className="h-6 w-6" />
@@ -301,6 +284,7 @@ export default function Header() {
             <a
               href="https://instagram.com"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-[var(--primary-color)]"
             >
               <FaInstagram className="h-6 w-6" />
@@ -308,6 +292,7 @@ export default function Header() {
             <a
               href="https://youtube.com"
               target="_blank"
+              rel="noopener noreferrer"
               className="text-white hover:text-[var(--primary-color)]"
             >
               <FaYoutube className="h-6 w-6" />

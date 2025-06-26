@@ -85,9 +85,12 @@ export default function Impacts() {
   };
 
   return (
-    <div className="w-full  py-8">
-      <div className="flex items-center justify-center w-full md:mb-5 mb-4 relative">
-        <div className="h-[1px] bg-[#282D27] w-full"></div>
+    <div className="w-full  px-4 py-8">
+      <div className="flex  items-center justify-center w-full md:mb-5 mb-4 relative">
+      <div className="flex w-full justify-between">
+      <div className="h-[2px] bg-[#282D27] md:w-[42%] w-[28%]"></div>
+      <div className="h-[2px] bg-[#282D27] md:w-[42%] w-[28%]"></div>
+      </div>
         <h2 className="absolute bg-[#282D27] text-white md:px-12 px-9  py-2 md:py-3 rounded-t-3xl md:text-lg text-sm font-semibold">
           Impacts
         </h2>
@@ -108,7 +111,7 @@ export default function Impacts() {
         </div>
       </div>
 
-      <div className="px-4">
+      <div className="">
         <div className="bg-[#282D27] rounded-2xl md:p-8 p-4 relative">
           <div className="md:px-4">
             <Slider ref={sliderRef} {...settings}>
@@ -143,7 +146,7 @@ export default function Impacts() {
       </div>
 
       <div className="w-full md:mt-8  mt-4" id="gallery">
-        <div className="md:h-[1px] h-[0.5px] bg-[#282D27] w-full"></div>
+        <div className=" h-[2px] bg-[#282D27] w-full"></div>
       </div>
     </div>
   );

@@ -185,7 +185,7 @@ export default function Home() {
                     alt="വർഗ്ഗീയതയ്_ക്കെതിരെ യൂത്ത് കോൺഗ്രസ്_ ക്യാമ്പയിൻ"
                     width={600}
                     height={600}
-                    className="rounded-2xl shadow-2xl object-cover w-full h-98"
+                    className="rounded-2xl shadow-2xl object-cover w-full md:h-98 h-40"
                     quality={100}
                     style={{
                       willChange: "transform",
@@ -200,8 +200,8 @@ export default function Home() {
               variants={fadeInLeft}
               className="flex-1 w-full  h-full"
             >
-              <div className="h-full flex flex-col justify-between montserrat text-sm leading-relaxed  text-center md:text-left">
-                <h2 className="text-3xl font-semibold mb-5 text-white">
+              <div className="h-full flex flex-col justify-between  md:text-sm text-xs alumni-sans leading-relaxed  text-center md:text-left">
+                <h2 className="md:text-3xl text-xl font-semibold mb-5 text-white">
                   About Shafi Parambil
                 </h2>
                 <p className="">

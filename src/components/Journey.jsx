@@ -141,7 +141,7 @@ export default function Journey() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           />
           <motion.h2
-            className="text-white bg-black text-lg font-bold px-8 py-1.5 rounded-4xl -ml-5"
+            className="text-white bg-black text-lg font-bold px-8 py-1.5 rounded-l-xl rounded-br-xl -ml-5"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -161,7 +161,7 @@ export default function Journey() {
           <div className="md:px-8 px-0 pb-6">
             <div className="relative">
               <motion.div
-                className="absolute top-1 left-0 right-0 h-0.5 bg-white"
+                className="absolute md:top-4 top-4.5 left-0 right-0 h-0.5 bg-white"
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 1, delay: 0.4 }}
@@ -169,7 +169,7 @@ export default function Journey() {
 
               {/* Horizontal scroll container */}
               <div className="mt-4 relative overflow-x-auto scrollbar-hidden custom-scrollbar">
-                <div className="flex w-max space-x-6 px-2">
+                <div className="flex   h-16  justify-center items-center space-x-6 w-max mx-auto px-2 md:w-full md:justify-between">
                   {years.map((year, index) => (
                     <motion.div
                       key={year}
