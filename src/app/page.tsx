@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Header from "../src/components/Header";
+import Header from "../components/Header";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
-import Journey from '../src/components/Journey'
-import Impacts from '../src/components/Impacts'
-import Gallery from '../src/components/Gallery'
-import VideoGallery from '../src/components/VedioGallery'
-import Footer from '../src/components/Footer'
+import Journey from '../components/Journey'
+import Impacts from '../components/Impacts'
+import Gallery from '../components/Gallery'
+import VideoGallery from '../components/VedioGallery'
+import Footer from '../components/Footer'
 const fadeInUp = {
   hidden: {
     opacity: 0,
