@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Header from "../components/Header";
+import Header from "../src/components/Header";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
-import Journey from '../components/Journey'
-import Impacts from '../components/Impacts'
-import Gallery from '../components/Gallery'
-import VideoGallery from '../components/VedioGallery'
-import Footer from '../components/Footer'
+import Journey from '../src/components/Journey'
+import Impacts from '../src/components/Impacts'
+import Gallery from '../src/components/Gallery'
+import VideoGallery from '../src/components/VedioGallery'
+import Footer from '../src/components/Footer'
 const fadeInUp = {
   hidden: {
     opacity: 0,
@@ -122,12 +122,12 @@ export default function Home() {
     // Check if we're coming from a section link click
     const fromSectionLink = sessionStorage.getItem("fromSectionLink");
     const sectionId = sessionStorage.getItem("sectionToScroll");
-  
+
     if (fromSectionLink && sectionId) {
       // Clear the flags immediately
       sessionStorage.removeItem("fromSectionLink");
       sessionStorage.removeItem("sectionToScroll");
-  
+
       // Scroll to the section after a brief delay
       setTimeout(() => {
         const section = document.getElementById(sectionId);
