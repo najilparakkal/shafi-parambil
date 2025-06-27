@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import Slider from "react-slick"
-import { motion } from "framer-motion"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-import { FaAngleLeft, FaAngleRight } from "react-icons/fa"
+import { useState, useRef, useEffect } from "react";
+import Slider from "react-slick";
+import { motion } from "framer-motion";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 const videosData = [
   {
@@ -44,60 +44,63 @@ const videosData = [
     views: "367K",
     title: "Healthcare Program",
   },
-]
+];
 
 export default function VideoGallery() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [videoLoaded, setVideoLoaded] = useState(new Array(videosData.length).fill(false))
-  const sliderRef = useRef(null)
-  const videoRefs = useRef([])
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(
+    new Array(videosData.length).fill(false)
+  );
+  const sliderRef = useRef(null);
+  const videoRefs = useRef([]);
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener("resize", checkMobile)
-    return () => window.removeEventListener("resize", checkMobile)
-  }, [])
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   const handleSlideClick = (index) => {
     // If clicking the current slide, toggle play/pause
     if (index === currentSlide) {
-      const video = videoRefs.current[index]
+      const video = videoRefs.current[index];
       if (video) {
         if (video.paused) {
-          video.play()
+          video
+            .play()
             .then(() => setIsPlaying(true))
-            .catch(console.error)
+            .catch(console.error);
         } else {
-          video.pause()
-          setIsPlaying(false)
+          video.pause();
+          setIsPlaying(false);
         }
       }
     } else {
       // If clicking a different slide, center it and pause current video
-      sliderRef.current?.slickGoTo(index)
-      setCurrentSlide(index)
-      setIsPlaying(false)
+      sliderRef.current?.slickGoTo(index);
+      setCurrentSlide(index);
+      setIsPlaying(false);
     }
-  }
+  };
 
   const handleVideoEnded = (index) => {
     if (index === currentSlide) {
-      setIsPlaying(false)
+      setIsPlaying(false);
     }
-  }
+  };
 
   const handleVideoLoaded = (index) => {
     setVideoLoaded((prev) => {
-      const newLoaded = [...prev]
-      newLoaded[index] = true
-      return newLoaded
-    })
-  }
+      const newLoaded = [...prev];
+      newLoaded[index] = true;
+      return newLoaded;
+    });
+  };
 
   const settings = {
     centerMode: true,
@@ -111,10 +114,10 @@ export default function VideoGallery() {
     beforeChange: (current, next) => {
       // Pause the current video when sliding
       if (videoRefs.current[current]) {
-        videoRefs.current[current].pause()
+        videoRefs.current[current].pause();
       }
-      setCurrentSlide(next)
-      setIsPlaying(false)
+      setCurrentSlide(next);
+      setIsPlaying(false);
     },
     responsive: [
       {
@@ -141,33 +144,37 @@ export default function VideoGallery() {
         },
       },
     ],
-  }
+  };
 
   const formatViews = (views) => {
-    return views
-  }
+    return views;
+  };
 
   const getSlideClass = (index) => {
     if (isMobile) {
-      return index === currentSlide ? "center-slide" : "side-slide"
+      return index === currentSlide ? "center-slide" : "side-slide";
     } else {
-      const isCenter = index === currentSlide
+      const isCenter = index === currentSlide;
       const isAdjacent =
         Math.abs(index - currentSlide) === 1 ||
         (currentSlide === 0 && index === videosData.length - 1) ||
-        (currentSlide === videosData.length - 1 && index === 0)
+        (currentSlide === videosData.length - 1 && index === 0);
 
-      return isCenter ? "center-slide" : isAdjacent ? "adjacent-slide" : "far-slide"
+      return isCenter
+        ? "center-slide"
+        : isAdjacent
+        ? "adjacent-slide"
+        : "far-slide";
     }
-  }
+  };
 
   return (
     <div className="w-full bg-black overflow-hidden flex flex-col">
       <div className="md:max-w-7xl max-w-80 mx-auto h-[400px] md:h-[400px] mt-10">
         <Slider {...settings} ref={sliderRef}>
           {videosData.map((video, index) => {
-            const slideClass = getSlideClass(index)
-            const isCenter = slideClass === "center-slide"
+            const slideClass = getSlideClass(index);
+            const isCenter = slideClass === "center-slide";
 
             return (
               <div key={video.id} className={isMobile ? "px-1" : "px-2"}>
@@ -178,10 +185,10 @@ export default function VideoGallery() {
                         ? "h-80 w-full"
                         : "h-64 w-full opacity-60"
                       : slideClass === "center-slide"
-                        ? "h-96 w-full"
-                        : slideClass === "adjacent-slide"
-                          ? "h-80 w-full opacity-70"
-                          : "h-64 w-full opacity-40"
+                      ? "h-96 w-full"
+                      : slideClass === "adjacent-slide"
+                      ? "h-80 w-full opacity-70"
+                      : "h-64 w-full opacity-40"
                   }`}
                   animate={{
                     scale: isMobile
@@ -189,10 +196,10 @@ export default function VideoGallery() {
                         ? 1
                         : 0.85
                       : slideClass === "center-slide"
-                        ? 1
-                        : slideClass === "adjacent-slide"
-                          ? 0.9
-                          : 0.8,
+                      ? 1
+                      : slideClass === "adjacent-slide"
+                      ? 0.9
+                      : 0.8,
                   }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                   onClick={() => handleSlideClick(index)}
@@ -201,15 +208,21 @@ export default function VideoGallery() {
                     <video
                       ref={(el) => (videoRefs.current[index] = el)}
                       src={video.src}
-                      className="w-full h-full object-cover"
-                    //   muted
+                      className={`absolute top-0 left-0 w-full h-full ${
+                        isCenter ? "z-20" : "z-10"
+                      }`}
                       playsInline
-                      preload="metadata"
+                      preload="auto"
+                      muted={!isCenter}
+                      autoPlay={isCenter}
+                      loop={false}
+                      controls={false}
                       onLoadedData={() => handleVideoLoaded(index)}
                       onEnded={() => handleVideoEnded(index)}
                       onPlay={() => isCenter && setIsPlaying(true)}
                       onPause={() => isCenter && setIsPlaying(false)}
                       poster={`${video.src.replace(".mp4", ".jpg")}`}
+                      style={{ display: videoLoaded[index] ? "block" : "none" }}
                     />
 
                     {/* Loading indicator */}
@@ -218,7 +231,11 @@ export default function VideoGallery() {
                         <motion.div
                           className="w-8 h-8 border-2 border-white border-t-transparent rounded-full"
                           animate={{ rotate: 360 }}
-                          transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                          transition={{
+                            duration: 1,
+                            repeat: Number.POSITIVE_INFINITY,
+                            ease: "linear",
+                          }}
                         />
                       </div>
                     )}
@@ -234,8 +251,14 @@ export default function VideoGallery() {
                         </div>
                       </div>
                       {isCenter && (
-                        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-2">
-                          <p className="text-sm font-medium drop-shadow-lg">{video.title}</p>
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="mt-2"
+                        >
+                          <p className="text-sm font-medium drop-shadow-lg">
+                            {video.title}
+                          </p>
                         </motion.div>
                       )}
                     </div>
@@ -250,7 +273,9 @@ export default function VideoGallery() {
                       >
                         <div
                           className={`px-2 py-1 rounded-full text-xs font-bold ${
-                            isPlaying ? "bg-red-500 text-white" : "bg-gray-500 text-white"
+                            isPlaying
+                              ? "bg-red-500 text-white"
+                              : "bg-gray-500 text-white"
                           }`}
                         >
                           {isPlaying ? "PLAYING" : "PAUSED"}
@@ -274,7 +299,7 @@ export default function VideoGallery() {
                   </div>
                 </motion.div>
               </div>
-            )
+            );
           })}
         </Slider>
       </div>
@@ -317,5 +342,5 @@ export default function VideoGallery() {
         </div>
       )}
     </div>
-  )
+  );
 }
