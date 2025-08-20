@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { BiMenu } from "react-icons/bi";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
+import Dock from "./Dockitme";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +63,7 @@ export default function Header() {
     if (link.isSection) {
       e.preventDefault();
       setIsOpen(false);
-  
+
       if (pathname !== "/") {
         router.push(`/#${link.href}`, { scroll: false });
       } else {
@@ -142,6 +143,22 @@ export default function Header() {
     };
   }, []);
 
+  const items = [
+    { icon: <FaFacebook className="h-5 w-5" />, onClick: () => alert("Home!") },
+    {
+      icon: <BsTwitterX className="h-5 w-5" />,
+      onClick: () => alert("Archive!"),
+    },
+    {
+      icon: <FaInstagram className="h-5 w-5" />,
+      onClick: () => alert("Profile!"),
+    },
+    {
+      icon: <FaYoutube className="h-5 w-5" />,
+      onClick: () => alert("Settings!"),
+    },
+  ];
+
   return (
     <header className="flex fixed top-0 left-0 items-center justify-between px-4 md:px-10 z-50 w-full h-20 bg-black bg-opacity-80 backdrop-blur-sm">
       <div className="flex items-center justify-center z-10">
@@ -175,14 +192,21 @@ export default function Header() {
       </nav>
 
       {/* Desktop Social Media */}
-      <div className="hidden md:flex items-center gap-3">
+      <div className="hidden md:flex  gap-3 w-40 relative">
+        {/* <Dock
+          items={items}
+          panelHeight={40}
+          baseItemSize={30}
+          magnification={50}
+          className="absolute"
+        /> */}
         <a
           href="https://facebook.com"
           target="_blank"
           rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
-          <FaFacebook className="h-5 w-5" />
+          <FaFacebook className="h-6 w-6" />
         </a>
         <a
           href="https://twitter.com"
@@ -190,7 +214,7 @@ export default function Header() {
           rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
-          <BsTwitterX className="h-5 w-5" />
+          <BsTwitterX className="h-6 w-6" />
         </a>
         <a
           href="https://instagram.com"
@@ -198,7 +222,7 @@ export default function Header() {
           rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
-          <FaInstagram className="h-5 w-5" />
+          <FaInstagram className="h-6 w-6" />
         </a>
         <a
           href="https://youtube.com"
@@ -206,7 +230,7 @@ export default function Header() {
           rel="noopener noreferrer"
           className="text-white hover:text-[var(--primary-color)]"
         >
-          <FaYoutube className="h-5 w-5" />
+          <FaYoutube className="h-6 w-6" />
         </a>
       </div>
 

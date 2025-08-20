@@ -153,7 +153,7 @@ export default function Journey() {
 
       <div className="md:py-10 py-5 px-4">
         <motion.div
-          className="bg-[#00520E] rounded-lg  md:p-6 max-h-[500px]  overflow-auto custom-scrollbar"
+          className="bg-[#00520E] rounded-lg  md:p-6  "
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -223,7 +223,7 @@ export default function Journey() {
                 </AnimatePresence>
               </div>
 
-              <div className="flex-1 flex flex-col md:items-center md:text-start text-center text-white md:w-[60%] w-full">
+              <div className="flex-1 flex flex-col  overflow-auto custom-scrollbar max-h-[500px] md:items-center md:text-start text-center text-white md:w-[60%] w-full">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`content-${selectedYear}`}
