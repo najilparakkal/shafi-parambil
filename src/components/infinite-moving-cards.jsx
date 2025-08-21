@@ -113,7 +113,7 @@ export const ThreeDMarquee = ({
   return (
     <div
       className={cn(
-        "mx-auto block md:h-[900px] h-[600px]  p-10 overflow-hidden  relative",
+        "mx-auto block md:h-[900px] h-[700px]  p-10 overflow-hidden  relative",
         className
       )}
     >
@@ -122,7 +122,7 @@ export const ThreeDMarquee = ({
         <div className="relative">
           {/* Simple gradient text without any additional effects */}
           <motion.h2
-            className="text-5xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black/50 to-gray-100"
+            className="text-xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -145,12 +145,12 @@ export const ThreeDMarquee = ({
       </div>
 
       <div className="flex size-full items-center justify-center">
-        <div className="size-[1720px] shrink-0 scale-50 sm:scale-75 lg:scale-100">
+        <div className="size-[1720px] shrink-0 scale-60 sm:scale-75 lg:scale-100">
           <div
             style={{
               transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
             }}
-            className="relative top-[500px] right-[55%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
+            className="relative top-[500px] md:right-[55%] right-[100%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
           >
             {chunks.map((subarray, colIndex) => (
               <motion.div
