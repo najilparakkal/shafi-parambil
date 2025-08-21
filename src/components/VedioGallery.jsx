@@ -223,7 +223,7 @@ export default function YouTubeShortsGallery() {
   return (
     <div
       ref={containerRef}
-      className="w-full bg-black overflow-hidden md:py-10 flex flex-col py-12"
+      className="w-full bg-black overflow-hidden md:py-10 flex flex-col pb-12"
     >
       {/* Section Title */}
       <div className="text-center mb-8">
@@ -231,7 +231,7 @@ export default function YouTubeShortsGallery() {
         <p className="text-gray-400 mt-2">Watch the latest News Clips</p>
       </div>
 
-      <div className="md:max-w-7xl max-w-80 mx-auto h-[400px] md:h-[400px]">
+      <div className=" h-[400px] md:h-[400px]">
         <Slider {...settings} ref={sliderRef}>
           {videosData.map((video, index) => {
             const slideClass = getSlideClass(index);

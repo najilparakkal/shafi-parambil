@@ -30,7 +30,7 @@ const HorizontalScrollCarousel = () => {
   return (
     <section
       ref={targetRef}
-      className="relative h-[300vh] bg-gradient-to-b from-black to-gray-900"
+      className="relative h-[300vh] bg-black"
     >
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div style={{ x }} className="flex gap-8 md:gap-12 pl-4 md:pl-8">
@@ -53,7 +53,7 @@ const Card = ({ card, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group relative h-[450px] w-[300px] md:h-[350px] md:w-[450px] overflow-hidden rounded-2xl cursor-pointer"
+      className="group relative h-[350px] w-[300px] md:h-[350px] md:w-[450px] overflow-hidden rounded-2xl cursor-pointer"
       whileHover={{ scale: 1.03 }}
     >
       <div className="absolute inset-0 z-0 overflow-hidden">
