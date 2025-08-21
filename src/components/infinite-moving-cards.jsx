@@ -113,7 +113,7 @@ export const ThreeDMarquee = ({
   return (
     <div
       className={cn(
-        "mx-auto block h-[900px]  p-10 overflow-hidden  relative",
+        "mx-auto block md:h-[900px] h-[600px]  p-10 overflow-hidden  relative",
         className
       )}
     >
@@ -122,7 +122,7 @@ export const ThreeDMarquee = ({
         <div className="relative">
           {/* Simple gradient text without any additional effects */}
           <motion.h2
-            className="text-xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
+            className="text-5xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black/50 to-gray-100"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}

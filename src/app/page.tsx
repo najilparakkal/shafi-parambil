@@ -150,12 +150,12 @@ export default function Home() {
     <div className=" relative w-full flex flex-col">
       <Header />
       <main className="relative w-full mt-20  bg-black">
-        <div className="relative w-full h-40 md:h-[calc(100vh-5rem)]">
+        <div className="relative w-full h-60 md:h-[calc(100vh-5rem)]">
           <Image
             src="/banner/shafi[1].png"
             alt="Background"
             fill
-            className="object-cover"
+            className="object-fill"
             quality={100}
             priority
           />

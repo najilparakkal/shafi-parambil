@@ -4,7 +4,7 @@ import { useRef } from "react";
 const Example = () => {
   return (
     <div className="bg-black min-h-screen">
-      <div className="flex h-40 items-center justify-center">
+      <div className="flex pt-10 items-center justify-center">
         <motion.span
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
