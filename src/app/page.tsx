@@ -166,7 +166,7 @@ export default function Home() {
       </main>
 
 
-      <div className="md:h-auto flex h-auto flex-col py-10 antialiased bg-black  dark:bg-grid-white/[0.05] md:items-center  md:justify-center relative overflow-hidden">
+      <div className="md:h-auto flex flex-col pb-10 antialiased bg-black  dark:bg-grid-white/[0.05] md:items-center  md:justify-center relative overflow-hidden">
         <ThreeDMarqueeDemo />
 
         {/* <InfiniteMovingCards
