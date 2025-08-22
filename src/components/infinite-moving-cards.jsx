@@ -1,17 +1,31 @@
 "use client";
 
-import { cn } from "../../lib/util";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
-
-
+import { cn } from "../../lib/util";
 
 export const ThreeDMarquee = ({
   images,
   className,
   centerText = "SHAFI PARAMBIL",
 }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Initial check
+    checkMobile();
+
+    // Add event listener for resize
+    window.addEventListener("resize", checkMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Split the images array into 5 equal parts for 5 columns
   const chunkSize = Math.ceil(images.length / 5);
   const chunks = Array.from({ length: 5 }, (_, colIndex) => {
@@ -22,16 +36,15 @@ export const ThreeDMarquee = ({
   return (
     <div
       className={cn(
-        "mx-auto block md:h-[900px] h-[700px]  p-10 overflow-hidden  relative",
+        "mx-auto block md:h-[900px] h-[600px] p-4 md:p-10 overflow-hidden relative three-d-marquee-container",
         className
       )}
     >
       {/* Centered Text Overlay */}
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="relative">
-          {/* Simple gradient text without any additional effects */}
           <motion.h2
-            className="text-xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
+            className="text-4xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -54,12 +67,22 @@ export const ThreeDMarquee = ({
       </div>
 
       <div className="flex size-full items-center justify-center">
-        <div className="size-[1720px] shrink-0 scale-60 sm:scale-75 lg:scale-100">
+        <div
+          className={cn(
+            "size-[1720px] shrink-0 scale-60 sm:scale-75 lg:scale-100",
+            isMobile && "scale-50" // More aggressive scaling on mobile
+          )}
+        >
           <div
             style={{
               transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
             }}
-            className="relative top-[500px] md:right-[55%] right-[100%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
+            className={cn(
+              "relative grid size-full origin-top-left grid-cols-5 gap-4 md:gap-8 transform-3d",
+              isMobile
+                ? "top-[250px] right-[70%]"
+                : "top-[500px] md:right-[55%]"
+            )}
           >
             {chunks.map((subarray, colIndex) => (
               <motion.div
@@ -71,7 +94,7 @@ export const ThreeDMarquee = ({
                   ease: "linear",
                 }}
                 key={colIndex + "marquee"}
-                className="flex flex-col items-start gap-8"
+                className="flex flex-col items-start gap-4 md:gap-8"
               >
                 <GridLineVertical className="-left-4" offset="80px" />
 
@@ -83,23 +106,21 @@ export const ThreeDMarquee = ({
                     {/* Wrapper for image and overlay */}
                     <div className="relative">
                       <motion.img
-                        // whileHover={{
-                        //   y: -15,
-                        //   scale: 1.00,
-                        // }}
                         transition={{
                           duration: 0.15,
                           ease: "easeOut",
                         }}
                         src={image}
                         alt={`Image ${(imageIndex % subarray.length) + 1}`}
-                        className="aspect-[970/700] rounded-lg object-cover ring ring-gray-950/5 hover:shadow-2xl hover:ring-2 hover:ring-gray-950/10 transition-all duration-150"
+                        className="aspect-[970/700] rounded-lg object-cover ring ring-gray-950/5 transition-all duration-150"
                         width={970}
                         height={700}
+                        loading="lazy"
+                        decoding="async"
                       />
 
                       {/* Black overlay */}
-                      <div  className="absolute inset-0 bg-black/80 rounded-lg pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-black/80 rounded-lg pointer-events-none"></div>
                     </div>
                   </div>
                 ))}
@@ -114,6 +135,19 @@ export const ThreeDMarquee = ({
 
 // Alternative infinite scrolling version with keyframes for smoother loop
 export const ThreeDMarqueeInfinite = ({ images, className }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Split the images array into 5 equal parts for 5 columns
   const chunkSize = Math.ceil(images.length / 5);
   const chunks = Array.from({ length: 5 }, (_, colIndex) => {
@@ -124,22 +158,30 @@ export const ThreeDMarqueeInfinite = ({ images, className }) => {
   return (
     <div
       className={cn(
-        "mx-auto block h-[900px] overflow-hidden max-sm:h-100",
+        "mx-auto block h-[700px] md:h-[900px] overflow-hidden",
         className
       )}
     >
       <div className="flex size-full items-center justify-center">
-        <div className="size-[1720px] shrink-0 scale-50 sm:scale-75 lg:scale-100">
+        <div
+          className={cn(
+            "size-[1720px] shrink-0 scale-50 sm:scale-75 lg:scale-100",
+            isMobile && "scale-40" // More scaling for mobile
+          )}
+        >
           <div
             style={{
               transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
             }}
-            className="relative top-[500px] right-[55%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
+            className={cn(
+              "relative grid size-full origin-top-left grid-cols-5 gap-4 md:gap-8 transform-3d",
+              isMobile ? "top-[200px] right-[70%]" : "top-[500px] right-[55%]"
+            )}
           >
             {chunks.map((subarray, colIndex) => (
               <div
                 key={colIndex + "marquee"}
-                className="flex flex-col items-start gap-8 overflow-hidden"
+                className="flex flex-col items-start gap-4 md:gap-8 overflow-hidden"
               >
                 <GridLineVertical className="-left-4" offset="80px" />
 
@@ -149,24 +191,24 @@ export const ThreeDMarqueeInfinite = ({ images, className }) => {
                     y: colIndex % 2 === 0 ? [-100, -300] : [100, -100],
                   }}
                   transition={{
-                    duration: colIndex % 2 === 0 ? 2.5 : 3, // Even faster: 2.5s for even, 3s for odd
+                    duration: colIndex % 2 === 0 ? 2.5 : 3,
                     repeat: Infinity,
                     ease: "linear",
                     repeatType: "loop",
                   }}
-                  className="flex flex-col gap-8"
+                  className="flex flex-col gap-4 md:gap-8"
                 >
                   {[...subarray, ...subarray].map((image, imageIndex) => (
                     <div className="relative" key={imageIndex + image}>
                       <GridLineHorizontal className="-top-4" offset="20px" />
                       <motion.img
                         whileHover={{
-                          y: -25, // Even more dramatic hover
+                          y: -25,
                           scale: 1.08,
                           rotateZ: 2,
                         }}
                         transition={{
-                          duration: 0.1, // Super fast hover
+                          duration: 0.1,
                           ease: "easeOut",
                         }}
                         src={image}
@@ -174,6 +216,7 @@ export const ThreeDMarqueeInfinite = ({ images, className }) => {
                         className="aspect-[970/700] rounded-lg object-cover ring ring-gray-950/5 hover:shadow-2xl hover:ring-2 hover:ring-gray-950/10 transition-all duration-100"
                         width={970}
                         height={700}
+                        loading="lazy"
                       />
                     </div>
                   ))}
