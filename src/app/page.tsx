@@ -5,7 +5,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "../components/Header";
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { InfiniteMovingCards } from "@/components/infinite-moving-cards";
 import Journey from '../components/Journey'
 import Impacts from '../components/Impacts'
 import Gallery from '../components/Gallery'
