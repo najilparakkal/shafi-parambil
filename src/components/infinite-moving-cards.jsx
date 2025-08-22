@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../lib/util";
+import { cn } from "../../lib/util";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
