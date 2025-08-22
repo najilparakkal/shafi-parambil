@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
+
+
 export const ThreeDMarquee = ({
   images,
   className,
@@ -20,7 +22,7 @@ export const ThreeDMarquee = ({
   return (
     <div
       className={cn(
-        "mx-auto block md:h-[900px] h-[500px] p-4 md:p-10 overflow-hidden relative",
+        "mx-auto block md:h-[900px] h-[700px]  p-10 overflow-hidden  relative",
         className
       )}
     >
@@ -29,7 +31,7 @@ export const ThreeDMarquee = ({
         <div className="relative">
           {/* Simple gradient text without any additional effects */}
           <motion.h2
-            className="text-4xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
+            className="text-xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -52,12 +54,12 @@ export const ThreeDMarquee = ({
       </div>
 
       <div className="flex size-full items-center justify-center">
-        <div className="size-full md:size-[1720px] shrink-0 scale-50 md:scale-75 lg:scale-100">
+        <div className="size-[1720px] shrink-0 scale-60 sm:scale-75 lg:scale-100">
           <div
             style={{
               transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
             }}
-            className="relative md:top-[500px] top-[300px] md:right-[55%] right-[75%] grid size-full origin-top-left grid-cols-3 md:grid-cols-5 gap-4 md:gap-8 transform-3d"
+            className="relative top-[500px] md:right-[55%] right-[100%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
           >
             {chunks.map((subarray, colIndex) => (
               <motion.div
@@ -69,18 +71,22 @@ export const ThreeDMarquee = ({
                   ease: "linear",
                 }}
                 key={colIndex + "marquee"}
-                className="flex flex-col items-start gap-4 md:gap-8"
+                className="flex flex-col items-start gap-8"
               >
-                <GridLineVertical className="-left-2 md:-left-4" offset="40px md:80px" />
+                <GridLineVertical className="-left-4" offset="80px" />
 
                 {/* Double the images for seamless infinite loop */}
                 {[...subarray, ...subarray].map((image, imageIndex) => (
                   <div className="relative" key={imageIndex + image}>
-                    <GridLineHorizontal className="-top-2 md:-top-4" offset="10px md:20px" />
+                    <GridLineHorizontal className="-top-4" offset="20px" />
 
                     {/* Wrapper for image and overlay */}
                     <div className="relative">
                       <motion.img
+                        // whileHover={{
+                        //   y: -15,
+                        //   scale: 1.00,
+                        // }}
                         transition={{
                           duration: 0.15,
                           ease: "easeOut",
@@ -93,7 +99,7 @@ export const ThreeDMarquee = ({
                       />
 
                       {/* Black overlay */}
-                      <div className="absolute inset-0 bg-black/80 rounded-lg pointer-events-none"></div>
+                      <div  className="absolute inset-0 bg-black/80 rounded-lg pointer-events-none"></div>
                     </div>
                   </div>
                 ))}
@@ -118,24 +124,24 @@ export const ThreeDMarqueeInfinite = ({ images, className }) => {
   return (
     <div
       className={cn(
-        "mx-auto block h-[500px] md:h-[900px] overflow-hidden",
+        "mx-auto block h-[900px] overflow-hidden max-sm:h-100",
         className
       )}
     >
       <div className="flex size-full items-center justify-center">
-        <div className="size-full md:size-[1720px] shrink-0 scale-50 md:scale-75 lg:scale-100">
+        <div className="size-[1720px] shrink-0 scale-50 sm:scale-75 lg:scale-100">
           <div
             style={{
               transform: "rotateX(55deg) rotateY(0deg) rotateZ(-45deg)",
             }}
-            className="relative md:top-[500px] top-[300px] md:right-[55%] right-[75%] grid size-full origin-top-left grid-cols-3 md:grid-cols-5 gap-4 md:gap-8 transform-3d"
+            className="relative top-[500px] right-[55%] grid size-full origin-top-left grid-cols-5 gap-8 transform-3d"
           >
             {chunks.map((subarray, colIndex) => (
               <div
                 key={colIndex + "marquee"}
-                className="flex flex-col items-start gap-4 md:gap-8 overflow-hidden"
+                className="flex flex-col items-start gap-8 overflow-hidden"
               >
-                <GridLineVertical className="-left-2 md:-left-4" offset="40px md:80px" />
+                <GridLineVertical className="-left-4" offset="80px" />
 
                 {/* Double the content for seamless looping */}
                 <motion.div
@@ -143,24 +149,24 @@ export const ThreeDMarqueeInfinite = ({ images, className }) => {
                     y: colIndex % 2 === 0 ? [-100, -300] : [100, -100],
                   }}
                   transition={{
-                    duration: colIndex % 2 === 0 ? 2.5 : 3,
+                    duration: colIndex % 2 === 0 ? 2.5 : 3, // Even faster: 2.5s for even, 3s for odd
                     repeat: Infinity,
                     ease: "linear",
                     repeatType: "loop",
                   }}
-                  className="flex flex-col gap-4 md:gap-8"
+                  className="flex flex-col gap-8"
                 >
                   {[...subarray, ...subarray].map((image, imageIndex) => (
                     <div className="relative" key={imageIndex + image}>
-                      <GridLineHorizontal className="-top-2 md:-top-4" offset="10px md:20px" />
+                      <GridLineHorizontal className="-top-4" offset="20px" />
                       <motion.img
                         whileHover={{
-                          y: -25,
+                          y: -25, // Even more dramatic hover
                           scale: 1.08,
                           rotateZ: 2,
                         }}
                         transition={{
-                          duration: 0.1,
+                          duration: 0.1, // Super fast hover
                           ease: "easeOut",
                         }}
                         src={image}
