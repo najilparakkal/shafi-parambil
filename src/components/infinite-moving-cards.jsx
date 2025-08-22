@@ -44,7 +44,7 @@ export const ThreeDMarquee = ({
       <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
         <div className="relative">
           <motion.h2
-            className="text-4xl md:text-8xl font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
+            className="text-4xl md:text-8xl  font-bold text-center alumni-sans text-transparent bg-clip-text bg-gradient-to-r from-black to-gray-100"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -80,7 +80,7 @@ export const ThreeDMarquee = ({
             className={cn(
               "relative grid size-full origin-top-left grid-cols-5 gap-4 md:gap-8 transform-3d",
               isMobile
-                ? "top-[250px] right-[70%]"
+                ? "top-[590px] right-[100%]"
                 : "top-[500px] md:right-[55%]"
             )}
           >
