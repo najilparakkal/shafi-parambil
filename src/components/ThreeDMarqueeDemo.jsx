@@ -34,11 +34,24 @@ export function ThreeDMarqueeDemo() {
     " /gallery/shafi-parambil.avif ",
     "/gallery/shafi-parambil.webp",
     "/gallery/Shafi-Sharjah1-1713932867.webp",
-    
   ];
   return (
-    <div className="mx-auto my-10 max-w-7xl rounded-3xl">
-      <ThreeDMarquee images={images} />
+    <div className="md:mx-auto my-10 md:max-w-7xl rounded-3xl">
+      {/* <Masonry
+        items={items}
+        ease="power3.out"
+        duration={0.6}
+        stagger={0.05}
+        animateFrom="bottom"
+        scaleOnHover={true}
+        hoverScale={0.95}
+        blurToFocus={true}
+        colorShiftOnHover={false}
+      />{" "} */}
+
+
+            <ThreeDMarquee images={images} />
+
     </div>
   );
 }

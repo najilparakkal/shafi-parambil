@@ -167,8 +167,9 @@ export default function Home() {
 
 
       <div className="md:h-auto flex flex-col pb-10 antialiased bg-black  dark:bg-grid-white/[0.05] md:items-center  md:justify-center relative overflow-hidden">
-      </div>
         <ThreeDMarqueeDemo />
+
+      </div>
       <Journey />
       <div >
         <Example />
